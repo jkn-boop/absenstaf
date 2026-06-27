@@ -480,22 +480,6 @@
 </head>
 <body data-theme="dark">
 
-    <!-- LOGIN PAGE - Server Check via Google Apps Script -->
-    <div id="loginPage" style="position:fixed;inset:0;z-index:99999;background:radial-gradient(circle at top,#063b1d,#020806 58%);display:flex;align-items:center;justify-content:center;padding:20px;">
-        <div style="width:100%;max-width:380px;background:rgba(4,21,14,.96);border:1px solid rgba(124,255,0,.42);border-radius:24px;padding:24px;color:white;text-align:center;box-shadow:0 0 34px rgba(124,255,0,.25);">
-            <div style="font-size:42px;margin-bottom:8px;">💎</div>
-            <h2 style="margin:0 0 8px;font-size:24px;font-weight:900;">LOGIN DIAMOND GRUP</h2>
-            <p style="font-size:13px;color:#a8b8a3;margin:0 0 18px;line-height:1.6;">Masukkan ID dan password untuk membuka aplikasi.</p>
-
-            <input id="loginId" type="text" placeholder="ID" autocomplete="username" style="margin-bottom:10px;height:48px;border-radius:14px;padding:0 14px;width:100%;border:1px solid rgba(124,255,0,.35);background:#04140c;color:white;font-weight:800;outline:none;">
-            <input id="loginPassword" type="password" placeholder="Password" autocomplete="current-password" style="margin-bottom:14px;height:48px;border-radius:14px;padding:0 14px;width:100%;border:1px solid rgba(124,255,0,.35);background:#04140c;color:white;font-weight:800;outline:none;">
-
-            <button id="loginButton" onclick="loginApp()" style="width:100%;height:50px;border:none;border-radius:15px;background:#7CFF00;color:#04140c;font-weight:900;cursor:pointer;box-shadow:0 0 18px rgba(124,255,0,.28);">MASUK</button>
-            <p id="loginError" style="min-height:20px;margin-top:12px;color:#ef4444;font-size:13px;font-weight:800;"></p>
-        </div>
-    </div>
-
-
     <button class="btn-float help-btn" onclick="showTutorial()">?</button>
     <button class="btn-float theme-toggle" onclick="toggleTheme()" id="themeBtn">🌓</button>
 
@@ -664,78 +648,6 @@
     </div>
 
 <script>
-
-    /* --- LOGIN AMAN VIA GOOGLE APPS SCRIPT --- */
-    let APP_LOGIN_ID = sessionStorage.getItem("APP_LOGIN_ID") || "";
-    let APP_LOGIN_PASSWORD = sessionStorage.getItem("APP_LOGIN_PASSWORD") || "";
-    let LOGIN_CALLBACK_NAME = "diamondLoginCallback";
-
-    function loginApp() {
-        const id = document.getElementById("loginId").value.trim();
-        const pass = document.getElementById("loginPassword").value.trim();
-        const error = document.getElementById("loginError");
-        const btn = document.getElementById("loginButton");
-
-        if (!id || !pass) {
-            error.innerText = "ID dan password wajib diisi.";
-            return;
-        }
-
-        error.innerText = "Memeriksa login...";
-        error.style.color = "#a8b8a3";
-        btn.disabled = true;
-        btn.innerText = "MEMERIKSA...";
-
-        window[LOGIN_CALLBACK_NAME] = function(res) {
-            btn.disabled = false;
-            btn.innerText = "MASUK";
-
-            if (res && res.ok === true) {
-                APP_LOGIN_ID = id;
-                APP_LOGIN_PASSWORD = pass;
-                sessionStorage.setItem("APP_LOGIN_ID", id);
-                sessionStorage.setItem("APP_LOGIN_PASSWORD", pass);
-                document.getElementById("loginPage").style.display = "none";
-            } else {
-                error.style.color = "#ef4444";
-                error.innerText = "ID atau password salah.";
-            }
-        };
-
-        const old = document.getElementById("loginJsonpScript");
-        if (old) old.remove();
-
-        const script = document.createElement("script");
-        script.id = "loginJsonpScript";
-        script.src = _config._z
-            + "?action=login"
-            + "&loginId=" + encodeURIComponent(id)
-            + "&loginPassword=" + encodeURIComponent(pass)
-            + "&callback=" + encodeURIComponent(LOGIN_CALLBACK_NAME)
-            + "&t=" + Date.now();
-        script.onerror = function() {
-            btn.disabled = false;
-            btn.innerText = "MASUK";
-            error.style.color = "#ef4444";
-            error.innerText = "Gagal koneksi ke server login.";
-        };
-        document.body.appendChild(script);
-    }
-
-    function logoutApp() {
-        sessionStorage.removeItem("APP_LOGIN_ID");
-        sessionStorage.removeItem("APP_LOGIN_PASSWORD");
-        APP_LOGIN_ID = "";
-        APP_LOGIN_PASSWORD = "";
-        document.getElementById("loginPage").style.display = "flex";
-    }
-
-    window.addEventListener("load", function() {
-        if (APP_LOGIN_ID && APP_LOGIN_PASSWORD) {
-            document.getElementById("loginPage").style.display = "none";
-        }
-    });
-
     /* --- PROTEKSI INSPECT ELEMENT & F12 --- */
     (function() {
         document.addEventListener('contextmenu', e => e.preventDefault());
@@ -869,11 +781,6 @@
 
     async function prosesKirimFinal() {
         if (isProcessing || !tempPayload) return;
-        if (!APP_LOGIN_ID || !APP_LOGIN_PASSWORD) {
-            alert("Silakan login terlebih dahulu.");
-            logoutApp();
-            return;
-        }
         
         isProcessing = true;
         const btn = document.getElementById('btnKirim');
@@ -892,8 +799,6 @@
         const waktuFull = `${tglStr} ${jamStr}`;
 
         const payload = new URLSearchParams({
-            loginId: APP_LOGIN_ID,
-            loginPassword: APP_LOGIN_PASSWORD,
             nama: nama,
             operator: operator,
             shift: shift,
