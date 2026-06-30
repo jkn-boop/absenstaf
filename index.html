@@ -1,920 +1,1929 @@
 <!DOCTYPE html>
+
 <html lang="id">
+
 <head>
+
     <meta charset="UTF-8">
+
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+
     <title>DIAMOND GRUP - Neon Green Fire</title>
+
     <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+
     <link href="https://fonts.googleapis.com/css2?family=Yellowtail&display=swap" rel="stylesheet">
+
     <style>
 
+
+
         :root {
+
             --primary: #22c55e;
+
             --primary-2: #84cc16;
+
             --neon: #7CFF00;
+
             --glow: rgba(124,255,0,.38);
+
             --bg-body: #eef7ef;
+
             --surface: rgba(255,255,255,.92);
+
             --surface-soft: rgba(245,252,246,.94);
+
             --panel: #ffffff;
+
             --text-main: #0f2417;
+
             --text-muted: #607066;
+
             --border: rgba(21,128,61,.22);
+
             --input-bg: #f4faf5;
+
             --shadow: 0 18px 44px rgba(4, 38, 18, .16);
+
             --radius: 18px;
+
             --transition: all .22s ease;
+
         }
+
+
 
         [data-theme="dark"] {
+
             --primary: #7CFF00;
+
             --primary-2: #39FF14;
+
             --neon: #a6ff00;
+
             --glow: rgba(124,255,0,.55);
+
             --bg-body: #020806;
+
             --surface: rgba(4, 21, 14, .88);
+
             --surface-soft: rgba(8, 34, 22, .78);
+
             --panel: rgba(5, 20, 13, .86);
+
             --text-main: #f4fff0;
+
             --text-muted: #a8b8a3;
+
             --border: rgba(124,255,0,.32);
+
             --input-bg: rgba(0, 10, 7, .76);
+
             --shadow: 0 0 24px rgba(124,255,0,.18), 0 22px 70px rgba(0,0,0,.62);
+
         }
+
+
 
         * {
+
             margin: 0;
+
             padding: 0;
+
             box-sizing: border-box;
+
             font-family: 'Plus Jakarta Sans', sans-serif;
+
             -webkit-tap-highlight-color: transparent;
+
         }
+
+
 
         body {
+
             min-height: 100vh;
+
             padding: 14px;
+
             color: var(--text-main);
+
             background:
+
                 radial-gradient(circle at 16% 5%, rgba(124,255,0,.18), transparent 24%),
+
                 radial-gradient(circle at 85% 12%, rgba(0,255,136,.12), transparent 24%),
+
                 linear-gradient(145deg, var(--bg-body), var(--bg-body));
+
             overflow-x: hidden;
+
             position: relative;
+
             transition: var(--transition);
+
         }
+
+
 
         body::before {
+
             content: "";
+
             position: fixed;
+
             inset: 0;
+
             z-index: -3;
+
             opacity: .20;
+
             pointer-events: none;
+
             background-image:
+
                 radial-gradient(circle at 18px 20px, rgba(124,255,0,.30) 1px, transparent 2px),
+
                 radial-gradient(circle at 78px 78px, rgba(255,255,255,.08) 1px, transparent 2px);
+
             background-size: 92px 92px;
+
         }
+
+
 
         body::after {
+
             content: "";
+
             position: fixed;
+
             left: 0;
+
             right: 0;
+
             bottom: 0;
+
             height: 150px;
+
             z-index: -2;
+
             pointer-events: none;
+
             opacity: .18;
+
             background:
+
                 linear-gradient(to top, rgba(124,255,0,.22), transparent 58%),
+
                 url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='1200' height='230' viewBox='0 0 1200 230'%3E%3Cg fill='%237cff00' opacity='.50'%3E%3Crect x='20' y='115' width='54' height='115' rx='3'/%3E%3Crect x='105' y='70' width='80' height='160' rx='3'/%3E%3Crect x='225' y='98' width='58' height='132' rx='3'/%3E%3Crect x='325' y='40' width='92' height='190' rx='3'/%3E%3Crect x='458' y='120' width='70' height='110' rx='3'/%3E%3Crect x='570' y='52' width='84' height='178' rx='3'/%3E%3Crect x='704' y='92' width='65' height='138' rx='3'/%3E%3Crect x='810' y='30' width='92' height='200' rx='3'/%3E%3Crect x='950' y='74' width='75' height='156' rx='3'/%3E%3Crect x='1080' y='100' width='72' height='130' rx='3'/%3E%3C/g%3E%3C/svg%3E") bottom center / cover no-repeat;
+
         }
+
+
 
         .btn-float {
+
             position: fixed;
+
             bottom: 16px;
+
             z-index: 1000;
+
             width: 46px;
+
             height: 46px;
+
             border-radius: 50%;
+
             background: var(--surface);
+
             color: var(--primary);
+
             border: 1.3px solid var(--border);
+
             display: flex;
+
             align-items: center;
+
             justify-content: center;
+
             cursor: pointer;
+
             font-size: 18px;
+
             font-weight: 900;
+
             box-shadow: var(--shadow);
+
             transition: var(--transition);
+
         }
+
         .help-btn { left: 14px; }
+
         .theme-toggle { right: 14px; }
+
         .btn-float:hover { transform: translateY(-2px); box-shadow: 0 0 18px var(--glow), var(--shadow); }
+
         .btn-float:active { transform: scale(.94); }
 
+
+
         .top-nav {
+
             display: flex;
+
             gap: 10px;
+
             margin: 0 auto 10px;
+
             max-width: 600px;
+
             width: 100%;
+
         }
+
         .nav-link {
+
             flex: 1;
+
             text-decoration: none;
+
             min-height: 44px;
+
             border-radius: 16px;
+
             font-weight: 900;
+
             font-size: 13px;
+
             color: var(--text-main);
+
             text-align: center;
+
             display: flex;
+
             align-items: center;
+
             justify-content: center;
+
             gap: 7px;
+
             position: relative;
+
             overflow: hidden;
+
             background: linear-gradient(180deg, var(--surface), var(--panel));
+
             border: 1.3px solid var(--border);
+
             box-shadow: 0 7px 0 rgba(0,0,0,.18), 0 0 14px rgba(124,255,0,.16), inset 0 1px 0 rgba(255,255,255,.20);
+
             transition: var(--transition);
+
         }
+
         .nav-link::before, #btnKirim::before {
+
             content: "";
+
             position: absolute;
+
             inset: auto -12px -20px -12px;
+
             height: 42px;
+
             pointer-events: none;
+
             background:
+
                 radial-gradient(ellipse at 15% 100%, rgba(124,255,0,.75), transparent 30%),
+
                 radial-gradient(ellipse at 50% 100%, rgba(124,255,0,.45), transparent 33%),
+
                 radial-gradient(ellipse at 84% 100%, rgba(166,255,0,.70), transparent 28%);
+
             filter: blur(4px);
+
             opacity: .42;
+
             animation: greenFlame 1.8s infinite alternate ease-in-out;
+
         }
+
         .nav-link::after {
+
             content: "";
+
             width: 7px;
+
             height: 7px;
+
             border-radius: 999px;
+
             background: var(--primary);
+
             box-shadow: 0 0 12px var(--primary);
+
             margin-left: 4px;
+
         }
+
         .nav-link:hover { transform: translateY(-3px); }
+
         .nav-Game {
+
             color: #fff;
+
             background: linear-gradient(180deg, rgba(124,255,0,.75), rgba(15,112,24,.92));
+
             border-color: rgba(185,255,0,.72);
+
         }
+
+
 
         .container {
+
             width: 100%;
+
             max-width: 600px;
+
             margin: 0 auto 70px;
+
             border-radius: 22px;
+
             overflow: hidden;
+
             background: linear-gradient(180deg, var(--surface-soft), var(--surface));
+
             border: 1.4px solid var(--border);
+
             box-shadow: var(--shadow);
+
             position: relative;
+
         }
+
+
 
         header {
+
             min-height: 96px;
+
             padding: 18px 20px;
+
             display: flex;
+
             align-items: center;
+
             gap: 15px;
+
             position: relative;
+
             overflow: hidden;
+
             color: var(--text-main);
+
             background:
+
                 linear-gradient(90deg, rgba(1,11,7,.70), rgba(7,42,22,.40)),
+
                 url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='900' height='210' viewBox='0 0 900 210'%3E%3Crect width='900' height='210' fill='%23000402'/%3E%3Cg fill='%237cff00' opacity='.42'%3E%3Crect x='300' y='96' width='36' height='114'/%3E%3Crect x='350' y='55' width='55' height='155'/%3E%3Crect x='420' y='75' width='42' height='135'/%3E%3Crect x='490' y='35' width='62' height='175'/%3E%3Crect x='575' y='85' width='50' height='125'/%3E%3Crect x='650' y='25' width='68' height='185'/%3E%3Crect x='745' y='65' width='55' height='145'/%3E%3Crect x='825' y='92' width='45' height='118'/%3E%3C/g%3E%3C/svg%3E") right bottom / cover no-repeat;
+
             border-bottom: 1px solid var(--border);
+
         }
+
         header::before {
+
             content: "💎";
+
             width: 56px;
+
             height: 56px;
+
             flex: 0 0 56px;
+
             border-radius: 50%;
+
             display: flex;
+
             align-items: center;
+
             justify-content: center;
+
             font-size: 29px;
+
             background: rgba(0,12,7,.72);
+
             border: 1.5px solid var(--primary);
+
             box-shadow: 0 0 16px var(--glow), inset 0 0 18px rgba(124,255,0,.16);
+
             z-index: 1;
+
         }
+
         header h2 {
+
             position: relative;
+
             z-index: 1;
+
             font-size: 24px;
+
             font-weight: 900;
+
             letter-spacing: -.6px;
+
             color: #fff;
+
         }
+
         header p {
+
             position: relative;
+
             z-index: 1;
+
             margin-top: 5px;
+
             font-size: 13px;
+
             color: var(--primary);
+
             font-weight: 900;
+
             text-shadow: 0 0 10px var(--glow);
+
         }
+
         header p::after {
+
             content: "";
+
             display: inline-block;
+
             width: 7px;
+
             height: 7px;
+
             margin-left: 7px;
+
             border-radius: 50%;
+
             background: var(--primary);
+
             box-shadow: 0 0 12px var(--primary);
+
         }
+
+
 
         .form-grid {
+
             display: grid;
+
             grid-template-columns: 1fr;
+
             gap: 10px 12px;
+
             padding: 14px;
+
         }
+
         .form-group {
+
             display: flex;
+
             flex-direction: column;
+
             gap: 7px;
+
             padding: 12px;
+
             border-radius: 16px;
+
             background: var(--panel);
+
             border: 1.2px solid var(--border);
+
             box-shadow: inset 0 0 18px rgba(124,255,0,.04), 0 5px 14px rgba(0,0,0,.08);
+
         }
+
         .full-width { grid-column: 1 / -1; }
 
+
+
         label {
+
             font-size: 10px;
+
             font-weight: 900;
+
             text-transform: uppercase;
+
             letter-spacing: .8px;
+
             color: var(--primary);
+
             text-shadow: 0 0 8px rgba(124,255,0,.18);
+
         }
+
+
 
         input,
+
         select {
+
             height: 46px;
+
             padding: 0 13px;
+
             border: 1.2px solid var(--border);
+
             border-radius: 13px;
+
             font-size: 13px;
+
             font-weight: 800;
+
             background: var(--input-bg);
+
             color: var(--text-main);
+
             transition: var(--transition);
+
             width: 100%;
+
             outline: none;
+
         }
+
         input::placeholder { color: var(--text-muted); opacity: .75; }
+
         input:focus,
+
         select:focus {
+
             border-color: var(--primary);
+
             box-shadow: 0 0 0 3px rgba(124,255,0,.12), 0 0 16px var(--glow);
+
         }
+
         select option, optgroup { background: #04140c; color: #f4fff0; }
 
-        .mutasi-card {
-            padding: 12px 14px;
-            min-height: 60px;
-            border-radius: 16px;
-            background:
-                linear-gradient(90deg, rgba(12,60,22,.22), rgba(3,25,12,.14)),
-                radial-gradient(circle at 50% 130%, rgba(124,255,0,.28), transparent 42%),
-                var(--panel);
-            border: 1.3px solid var(--border);
-            cursor: pointer;
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            transition: var(--transition);
-            box-shadow: 0 0 14px rgba(124,255,0,.08), inset 0 0 20px rgba(124,255,0,.05);
+        .autocomplete-wrap {
             position: relative;
+        }
+
+        .autocomplete-list {
+            display: none;
+            position: absolute;
+            left: 12px;
+            right: 12px;
+            top: 78px;
+            z-index: 1200;
+            max-height: 210px;
+            overflow-y: auto;
+            border-radius: 13px;
+            border: 1.2px solid var(--primary);
+            background: #04140c;
+            box-shadow: 0 0 18px var(--glow), 0 18px 35px rgba(0,0,0,.45);
+        }
+
+        .autocomplete-item {
+            padding: 12px 14px;
+            cursor: pointer;
+            color: #f4fff0;
+            font-size: 13px;
+            font-weight: 900;
+            border-bottom: 1px solid rgba(124,255,0,.18);
+        }
+
+        .autocomplete-item:last-child { border-bottom: none; }
+
+        .autocomplete-item:hover {
+            background: rgba(124,255,0,.16);
+            color: var(--primary);
+        }
+
+        .autocomplete-empty {
+            padding: 12px 14px;
+            color: var(--text-muted);
+            font-size: 12px;
+            font-weight: 800;
+        }
+
+
+
+
+        .mutasi-card {
+
+            padding: 12px 14px;
+
+            min-height: 60px;
+
+            border-radius: 16px;
+
+            background:
+
+                linear-gradient(90deg, rgba(12,60,22,.22), rgba(3,25,12,.14)),
+
+                radial-gradient(circle at 50% 130%, rgba(124,255,0,.28), transparent 42%),
+
+                var(--panel);
+
+            border: 1.3px solid var(--border);
+
+            cursor: pointer;
+
+            display: flex;
+
+            align-items: center;
+
+            justify-content: space-between;
+
+            transition: var(--transition);
+
+            box-shadow: 0 0 14px rgba(124,255,0,.08), inset 0 0 20px rgba(124,255,0,.05);
+
+            position: relative;
+
             overflow: hidden;
+
         }
+
         .mutasi-card::before {
+
             content: "↔";
+
             font-size: 26px;
+
             color: var(--primary);
+
             margin-right: 10px;
+
             text-shadow: 0 0 12px var(--primary);
+
         }
+
         .mutasi-card > * { position: relative; z-index: 1; }
+
         .mutasi-card span:first-child {
+
             color: var(--primary);
+
             font-size: 13px !important;
+
             text-transform: uppercase;
+
         }
+
         .mutasi-card span:last-child {
+
             color: var(--text-muted) !important;
+
             font-size: 11px !important;
+
         }
+
         #checkPindah {
+
             appearance: none;
+
             -webkit-appearance: none;
+
             width: 24px !important;
+
             height: 24px !important;
+
             border: 1.7px solid var(--primary);
+
             border-radius: 5px;
+
             background: var(--input-bg);
+
             box-shadow: 0 0 10px var(--glow);
+
             flex: 0 0 24px;
+
         }
+
         #checkPindah:checked { background: var(--primary); box-shadow: 0 0 18px var(--primary); }
+
+
 
         #pindahPosisiContainer { animation: slideUp .22s ease; }
 
+
+
         #btnKirim {
+
             width: calc(100% - 28px);
+
             height: 54px;
+
             margin: 2px 14px 14px;
+
             border: none;
+
             border-radius: 18px;
+
             color: white;
+
             font-size: 15px;
+
             font-weight: 900;
+
             text-transform: uppercase;
+
             cursor: pointer;
+
             transition: var(--transition);
+
             position: relative;
+
             overflow: hidden;
+
             background: linear-gradient(180deg, rgba(124,255,0,.78), rgba(15,112,24,.96) 58%, rgba(4,43,12,.98));
+
             border: 1.3px solid rgba(193,255,0,.72);
+
             text-shadow: 0 2px 3px rgba(0,0,0,.55), 0 0 12px rgba(255,255,255,.35);
+
             box-shadow: 0 8px 0 rgba(0,0,0,.32), 0 0 18px var(--glow), inset 0 2px 0 rgba(255,255,255,.24);
+
         }
+
         #btnKirim:hover { transform: translateY(-3px); box-shadow: 0 11px 0 rgba(0,0,0,.28), 0 0 28px var(--glow); }
+
         #btnKirim:active { transform: translateY(3px); box-shadow: 0 4px 0 rgba(0,0,0,.36), 0 0 18px var(--glow); }
+
         #btnKirim:disabled { opacity: .65; cursor: wait; }
 
+
+
         .history-wrapper {
+
             padding: 0 14px 16px;
+
             margin-top: 0;
+
         }
+
         .history-wrapper > label {
+
             display: block;
+
             margin-bottom: 8px;
+
         }
+
         .table-container {
+
             background: var(--panel);
+
             border-radius: 14px;
+
             overflow-x: auto;
+
             border: 1.2px solid var(--border);
+
             max-height: 220px;
+
             box-shadow: inset 0 0 14px rgba(124,255,0,.05);
+
         }
+
         table {
+
             width: 100%;
+
             border-collapse: collapse;
+
             min-width: 420px;
+
             font-size: 12px;
+
         }
+
         th {
+
             padding: 10px 12px;
+
             text-align: left;
+
             font-size: 9px;
+
             text-transform: uppercase;
+
             color: var(--primary);
+
             border-bottom: 1px solid var(--border);
+
             background: rgba(124,255,0,.06);
+
         }
+
         td {
+
             padding: 10px 12px;
+
             color: var(--text-main);
+
             border-bottom: 1px solid var(--border);
+
         }
+
         tr:last-child td { border-bottom: none; }
+
         small { color: var(--text-muted) !important; }
 
+
+
         .badge {
+
             padding: 5px 9px;
+
             border-radius: 999px;
+
             font-size: 10px;
+
             font-weight: 900;
+
             display: inline-block;
+
         }
+
         .status-hadir {
+
             background: rgba(124,255,0,.13);
+
             color: var(--primary);
+
             border: 1px solid var(--border);
+
         }
+
+
+
 
 
         .footer-brand {
+
             width: 100%;
+
             margin: 34px auto 18px;
+
             padding: 0 14px;
+
             text-align: center;
+
             font-family: 'Yellowtail', cursive;
+
             font-size: 23px;
+
             font-weight: 400;
+
             line-height: 1.25;
+
             letter-spacing: .6px;
+
             color: #eaffdf;
+
             opacity: .88;
+
             text-shadow:
+
                 0 0 8px rgba(124,255,0,.35),
+
                 0 0 18px rgba(124,255,0,.20),
+
                 0 2px 4px rgba(0,0,0,.55);
+
             display: flex;
+
             align-items: center;
+
             justify-content: center;
+
             gap: 8px;
+
             transform: translateX(0);
+
         }
+
+
 
         .footer-brand span {
+
             font-family: 'Yellowtail', cursive;
+
             font-size: 21px;
+
             color: var(--primary);
+
             text-shadow:
+
                 0 0 10px var(--glow),
+
                 0 0 18px rgba(124,255,0,.25);
+
         }
+
+
 
         .modal-overlay {
+
             position: fixed;
+
             inset: 0;
+
             background: rgba(0, 8, 5, .72);
+
             backdrop-filter: blur(10px);
+
             display: none;
+
             align-items: center;
+
             justify-content: center;
+
             z-index: 2000;
+
             padding: 20px;
+
         }
+
         .modal-card {
+
             background: var(--surface);
+
             color: var(--text-main);
+
             border-radius: 20px;
+
             padding: 20px;
+
             width: 100%;
+
             max-width: 390px;
+
             text-align: center;
+
             animation: slideUp .22s ease;
+
             border: 1.3px solid var(--border);
+
             box-shadow: var(--shadow);
+
         }
+
         .modal-card button { cursor: pointer; }
+
         #reviewContent {
+
             background: var(--input-bg) !important;
+
             border-color: var(--border) !important;
+
             color: var(--text-main);
+
         }
+
+
 
         @keyframes greenFlame {
+
             from { transform: translateY(6px) scaleX(.98); opacity: .30; }
+
             to { transform: translateY(-4px) scaleX(1.03); opacity: .62; }
+
         }
+
         @keyframes slideUp {
+
             from { transform: translateY(16px); opacity: 0; }
+
             to { transform: translateY(0); opacity: 1; }
+
         }
+
+
 
         @media (min-width: 620px) {
+
             .form-grid { grid-template-columns: 1fr 1fr; }
+
             body { padding: 18px 14px; }
+
         }
+
+
 
         @media (max-width: 460px) {
+
             body { padding: 9px; }
+
             .top-nav { gap: 8px; }
+
             .nav-link { min-height: 42px; font-size: 12px; border-radius: 14px; }
+
             .container { border-radius: 18px; }
+
             header { min-height: 86px; padding: 15px; gap: 12px; }
+
             header::before { width: 48px; height: 48px; flex-basis: 48px; font-size: 25px; }
+
             header h2 { font-size: 20px; }
+
             header p { font-size: 11px; }
+
             .form-grid { padding: 10px; gap: 9px; }
+
             .form-group { padding: 10px; border-radius: 14px; }
+
             input, select { height: 44px; font-size: 12px; }
+
             #btnKirim { width: calc(100% - 20px); margin-left: 10px; margin-right: 10px; height: 50px; }
+
             .history-wrapper { padding-left: 10px; padding-right: 10px; }
+
             .btn-float { width: 42px; height: 42px; bottom: 12px; }
+
             .footer-brand { margin-top: 28px; font-size: 21px; }
+
             .footer-brand span { font-size: 19px; }
+
         }
 
+
+
     </style>
+
 </head>
+
 <body data-theme="dark">
 
+
+
     <button class="btn-float help-btn" onclick="showTutorial()">?</button>
+
     <button class="btn-float theme-toggle" onclick="toggleTheme()" id="themeBtn">🌓</button>
 
+
+
     <div class="top-nav">
+
         <a href="https://forms.gle/sVoBZw2mjAodVDmDA" target="_blank" class="nav-link nav-report">Evaluasi 🌐</a>
+
         <a href="https://jkn-boop.github.io/game/" target="_blank" class="nav-link nav-Game">Game ♣</a>
+
     </div>
+
+
 
     <div class="modal-overlay" id="modalOverlay">
+
         <div class="modal-card" id="tutorialCard" style="display: none;">
+
             <span style="font-size: 40px;">📖</span>
+
             <h3 style="margin: 10px 0;">Tutorial</h3>
+
             <div style="text-align: left; font-size: 13px; margin-bottom: 20px; line-height: 1.8;">
+
                 <p>1. Pilih Tanggal Shift.</p>
+
                 <p>2. Isi Nama & Operator.</p>
+
                 <p>3. Pilih Shift & Status.</p>
+
                 <p>4. Gunakan Mutasi jika perlu.</p>
+
             </div>
+
             <button onclick="closeModal()" style="width:100%; padding: 14px; background: var(--primary); color:white; border:none; border-radius:12px; font-weight:800;">MENGERTI</button>
+
         </div>
+
+
 
         <div class="modal-card" id="successCard" style="display: none;">
+
             <span style="font-size: 40px;">✅</span>
+
             <h3>Berhasil!</h3>
+
             <p style="font-size: 14px; margin: 10px 0; color: var(--text-muted);">Data absensi telah dicatat ke sistem.</p>
+
             <button onclick="closeModal()" style="width:100%; padding: 14px; background: var(--primary); color:white; border:none; border-radius:12px; font-weight:800;">OK</button>
+
         </div>
+
+
 
         <div class="modal-card" id="reviewCard" style="display: none;">
+
             <h3 style="margin-bottom: 15px;">Konfirmasi</h3>
+
             <div id="reviewContent" style="text-align: left; background: var(--input-bg); padding: 16px; border-radius: 12px; margin-bottom: 20px; font-size: 13px; line-height: 1.6; border: 1px solid var(--border);"></div>
+
             <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 10px;">
+
                 <button onclick="closeModal()" style="padding: 14px; border-radius: 12px; border: none; background: #94a3b8; color: white; font-weight: 700;">BATAL</button>
+
                 <button onclick="prosesKirimFinal()" style="padding: 14px; border-radius: 12px; border: none; background: var(--primary); color: white; font-weight: 700;">KIRIM</button>
+
             </div>
+
         </div>
+
     </div>
 
+
+
     <div class="container">
+
         <header>
+
             <h2 id="mainTitle">DIAMOND GRUP</h2>
+
             <p id="systemClock">Memuat waktu...</p>
+
         </header>
 
+
+
         <div class="form-grid">
+
             <div class="form-group full-width">
+
                 <label>Tanggal Kerja</label>
+
                 <input type="date" id="tanggalManual">
+
             </div>
 
-            <div class="form-group">
+
+
+            <div class="form-group autocomplete-wrap">
+
                 <label>Nama (Operator)</label>
-                <input type="text" id="nama" placeholder="Contoh: Jono (JN)">
+
+                <input type="text" id="nama" placeholder="Ketik nama, contoh: IN" autocomplete="off" oninput="cariNamaOperator()" onfocus="cariNamaOperator()" onblur="tutupListNamaNanti()">
+                <div id="namaSuggestion" class="autocomplete-list"></div>
+
             </div>
 
+
+
             <div class="form-group">
+
                 <label>Agent Panel</label>
+
                 <input type="text" id="operator" placeholder="Contoh: CS####">
+
             </div>
 
+
+
             <div class="form-group">
+
                 <label>Shift</label>
+
                 <select id="shift">
+
                     <option value="Pagi">Pagi ☀️</option>
+
                     <option value="Tengah">Tengah 🌤️</option>
+
                     <option value="Malam">Malam 🌙</option>
+
                 </select>
+
             </div>
 
+
+
             <div class="form-group">
+
                 <label>Status</label>
+
                 <select id="status" onchange="handleStatusChange()">
+
                     <option value="Hadir">Hadir</option>
+
                     <option value="Change shift">Change shift</option>
+
                     <option value="Off day">Off day</option>
+
                     <option value="Off setengah hari">Off setengah hari</option>
+
                     <option value="Beli off day">Beli off day</option>
+
                     <option value="Sakit">Sakit</option>
+
                 </select>
+
             </div>
+
+
 
             <div class="form-group full-width" id="websiteGroup">
+
                 <label>Website Asal</label>
+
                 <select id="website">
+
                     <optgroup label="POSISI KHUSUS">
+
                         <option value="ADMIN">ADMIN</option>
+
                         <option value="SEMUA LC 3 WEB (BOLA86, ARMADA888, POMPA88)">SEMUA LC 3 WEB (BOLA86, ARMADA888, POMPA88)</option>
+
                         <option value="SEMUA LC 3 WEB (KOKOHOKI, BARGES88, POMPA4D)">SEMUA LC 3 WEB (KOKOHOKI, BARGES88, POMPA4D)</option>
+
                     </optgroup>
+
                     <optgroup label="WEBSITE">
+
                         <option value="BOLA86">BOLA86</option>
+
                         <option value="ARMADA888">ARMADA888</option>
+
                         <option value="POMPA88">POMPA88</option>
+
                         <option value="POMPA4D">POMPA4D</option>
+
                         <option value="KOKOHOKI">KOKOHOKI</option>
+
                         <option value="BARGES88">BARGES88</option>
+
                         <option value="CASHMARKET">CASHMARKET</option>
+
                     </optgroup>
+
                 </select>
+
             </div>
+
+
 
             <div class="form-group full-width" id="changeShiftGroup" style="display:none;">
+
                 <label>Keterangan Perubahan Shift</label>
+
                 <select id="ketChangeShift">
+
                     <option value="Pagi ➔ Malam">Pagi ➔ Malam 🌙</option>
+
                     <option value="Malam ➔ Pagi">Malam ➔ Pagi ☀️</option>
+
                     <option value="Pagi ➔ Tengah">Pagi ➔ Tengah 🌤️</option>
+
                     <option value="Tengah ➔ Malam">Tengah ➔ Malam 🌙</option>
+
                     <option value="Malam ➔ Tengah">Malam ➔ Tengah 🌤️</option>
+
                     <option value="Tengah ➔ Pagi">Tengah ➔ Pagi ☀️</option>
+
                 </select>
+
             </div>
+
+
 
             <div class="form-group full-width" id="beliOffGroup" style="display:none;">
+
                 <label>Off Day Milik Siapa?</label>
+
                 <input type="text" id="catatanBeli" placeholder="Nama Agent">
+
             </div>
+
+
 
             <div class="mutasi-card full-width" id="mutasiToggleCard" onclick="toggleMutasi()">
+
                 <div>
+
                     <span style="display: block; font-weight: 800; font-size: 13px;">Mode Mutasi</span>
+
                     <span style="font-size: 11px; color: var(--text-muted);">Klik jika pindah website</span>
+
                 </div>
+
                 <input type="checkbox" id="checkPindah" style="width: 22px; height: 22px; accent-color: var(--primary);">
+
             </div>
 
+
+
             <div id="pindahPosisiContainer" class="full-width" style="display:none;">
+
                 <div class="form-group">
+
                     <label>Website Tujuan</label>
+
                     <select id="websiteTujuan">
+
                         <option value="">- Pilih Tujuan -</option>
+
                         <option value="SEMUA LC 3 WEB (BOLA86, ARMADA888, POMPA88)">SEMUA LC 3 WEB (BOLA86, ARMADA888, POMPA88)</option>
+
                         <option value="SEMUA LC 3 WEB (KOKOHOKI, BARGES88, POMPA4D)">SEMUA LC 3 WEB (KOKOHOKI, BARGES88, POMPA4D)</option>
+
                         <option value="BOLA86">BOLA86</option>
+
                         <option value="ARMADA888">ARMADA888</option>
+
                         <option value="POMPA88">POMPA88</option>
+
                         <option value="POMPA4D">POMPA4D</option>
+
                         <option value="KOKOHOKI">KOKOHOKI</option>
+
                         <option value="BARGES88">BARGES88</option>
+
                         <option value="CASHMARKET">CASHMARKET</option>
+
                     </select>
+
                 </div>
+
             </div>
+
         </div>
+
+
 
         <button id="btnKirim" onclick="tambahAbsen()">Kirim Kehadiran</button>
 
+
+
         <div class="history-wrapper">
+
             <label>Riwayat 12 Jam Terakhir</label>
+
             <div class="table-container">
+
                 <table id="tabelAbsen">
+
                     <thead>
+
                         <tr>
+
                             <th>User</th>
+
                             <th>Shift / Status</th>
+
                             <th>Website</th>
+
                             <th>Waktu</th>
+
                         </tr>
+
                     </thead>
+
                     <tbody></tbody>
+
                 </table>
+
             </div>
+
         </div>
+
+
 
         <div class="footer-brand">
+
             Compact Neon Shift System
+
             <span>• Biawak</span>
+
         </div>
+
     </div>
 
+
+
 <script>
+
     /* --- PROTEKSI INSPECT ELEMENT & F12 --- */
+
     (function() {
+
         document.addEventListener('contextmenu', e => e.preventDefault());
+
         document.onkeydown = function(e) {
+
             if (e.keyCode == 123 || (e.ctrlKey && e.shiftKey && (e.keyCode == 'I'.charCodeAt(0) || e.keyCode == 'J'.charCodeAt(0) || e.keyCode == 'C'.charCodeAt(0))) || (e.ctrlKey && e.keyCode == 'U'.charCodeAt(0))) {
+
                 return false;
+
             }
+
         };
+
         setInterval(function() {
+
             (function(a) {return (function(a) {return (Function('return (function() {}.constructor("debugger")())')());})(a);})(0);
+
         }, 1000);
+
     })();
 
+
+
     const _config = {
+
         // GANTI dengan URL Web App dari Google Apps Script baru Anda.
+
         // Bot Telegram dan Chat ID tidak ditaruh di HTML agar lebih aman.
+
         _z: "https://script.google.com/macros/s/AKfycbyN_h8aadO3y7jXXtVFEVIPIuG4nkcZDXObFyHwpbH5zld8PMttDsYJ3xmnBg07sU1ycQ/exec"
+
     };
 
+
+
+
+
+    const daftarNamaOperator = [
+        "KEJOL", "UNAN", "YULI", "NOVITA", "ABUN", "YR", "FADILA", "ARJUN",
+        "JEJE", "TINO", "ROMAIDA", "HAIKAL", "PUTRI", "MASRAF", "IRFAN", "INDRA",
+        "ALVINA", "RINA", "GATOT", "FATIMAH", "BOI", "V", "MIMI", "REY",
+        "SALMAH", "HABIL", "SOFIAN", "NABILA", "BODREX", "RIRI", "ENZELIN",
+        "EX", "TOMI", "NOVEL", "JOKO", "PUTRA", "NOEL", "RENDI", "APRI", "SYAADA", "YOGA"
+    ];
+
+    function pilihNamaOperator(nama) {
+        document.getElementById('nama').value = nama;
+        document.getElementById('namaSuggestion').style.display = 'none';
+    }
+
+    function cariNamaOperator() {
+        const input = document.getElementById('nama');
+        const box = document.getElementById('namaSuggestion');
+        const keyword = input.value.trim().toUpperCase();
+
+        input.value = input.value.toUpperCase();
+
+        if (!keyword) {
+            box.style.display = 'none';
+            box.innerHTML = '';
+            return;
+        }
+
+        const hasil = daftarNamaOperator.filter(nama => nama.includes(keyword));
+
+        box.innerHTML = hasil.length
+            ? hasil.map(nama => `<div class="autocomplete-item" onclick="pilihNamaOperator('${nama}')">${nama}</div>`).join('')
+            : `<div class="autocomplete-empty">Nama tidak ditemukan</div>`;
+
+        box.style.display = 'block';
+    }
+
+    function tutupListNamaNanti() {
+        setTimeout(() => {
+            const box = document.getElementById('namaSuggestion');
+            if (box) box.style.display = 'none';
+        }, 180);
+    }
+
+
     let tempPayload = null;
+
     let isProcessing = false;
+
     const audioSukses = new Audio('https://assets.mixkit.co/active_storage/sfx/2869/2869-preview.mp3');
 
 
+
+
+
     function updateClock() {
+
         const now = new Date();
+
         const options = { weekday: 'short', day: 'numeric', month: 'short', hour: '2-digit', minute: '2-digit', second: '2-digit' };
+
         document.getElementById('systemClock').innerText = now.toLocaleDateString('id-ID', options);
+
     }
+
     setInterval(updateClock, 1000);
 
+
+
     function toggleTheme() {
+
         const body = document.body;
+
         const btn = document.getElementById('themeBtn');
+
         if (body.getAttribute('data-theme') === 'dark') {
+
             body.removeAttribute('data-theme');
+
             localStorage.setItem('workscan_theme', 'light');
+
             if(btn) btn.innerText = '🌙';
+
         } else {
+
             body.setAttribute('data-theme', 'dark');
+
             localStorage.setItem('workscan_theme', 'dark');
+
             if(btn) btn.innerText = '☀️';
+
         }
+
     }
+
+
 
     function applySavedTheme() {
+
         const saved = localStorage.getItem('workscan_theme') || 'dark';
+
         const btn = document.getElementById('themeBtn');
+
         if (saved === 'dark') {
+
             document.body.setAttribute('data-theme', 'dark');
+
             if(btn) btn.innerText = '☀️';
+
         } else {
+
             document.body.removeAttribute('data-theme');
+
             if(btn) btn.innerText = '🌙';
+
         }
+
     }
+
+
 
     function showTutorial() {
+
         document.getElementById('modalOverlay').style.display = 'flex';
+
         document.getElementById('tutorialCard').style.display = 'block';
+
         document.getElementById('successCard').style.display = 'none';
+
         document.getElementById('reviewCard').style.display = 'none';
+
     }
+
+
 
     function closeModal() {
+
         document.getElementById('modalOverlay').style.display = 'none';
+
     }
+
+
 
     function handleStatusChange() {
+
         const status = document.getElementById('status').value;
+
         const webGroup = document.getElementById('websiteGroup');
+
         const mutasiCard = document.getElementById('mutasiToggleCard');
+
         const beliGroup = document.getElementById('beliOffGroup');
+
         const changeGroup = document.getElementById('changeShiftGroup');
 
+
+
         webGroup.style.display = (status === "Hadir" || status === "Beli off day" || status === "Change shift") ? "block" : "none";
+
         mutasiCard.style.display = (status === "Hadir") ? "flex" : "none";
+
         beliGroup.style.display = (status === "Beli off day") ? "block" : "none";
+
         changeGroup.style.display = (status === "Change shift") ? "block" : "none";
+
         
+
         if (status !== "Hadir") {
+
             document.getElementById('checkPindah').checked = false;
+
             document.getElementById('pindahPosisiContainer').style.display = "none";
+
         }
+
     }
+
+
 
     function toggleMutasi() {
+
         const check = document.getElementById('checkPindah');
+
         if(event.target !== check) check.checked = !check.checked;
+
         document.getElementById('pindahPosisiContainer').style.display = check.checked ? 'block' : 'none';
+
     }
 
+
+
     function tambahAbsen() {
+
         const nama = document.getElementById('nama').value.trim();
+
         const operator = document.getElementById('operator').value.trim();
+
         const shift = document.getElementById('shift').value;
+
         const status = document.getElementById('status').value;
+
         const website = document.getElementById('website').value;
+
         const isPindah = document.getElementById('checkPindah').checked;
+
         const tujuan = document.getElementById('websiteTujuan').value;
+
         const catatanBeli = document.getElementById('catatanBeli').value.trim();
+
         const ketChangeShift = document.getElementById('ketChangeShift').value;
+
         const tglManual = document.getElementById('tanggalManual').value;
 
+
+
         if (!nama || !operator || !tglManual) { alert("Data wajib diisi!"); return; }
+        if (!daftarNamaOperator.includes(nama)) { alert("Nama harus dipilih dari daftar operator agar tidak typo."); return; }
+
         
+
         let websiteFinal = (status === "Hadir") ? (isPindah ? `${website} ➔ ${tujuan}` : website) : ((status === "Beli off day" || status === "Change shift") ? website : "-");
+
         const tglStr = tglManual.split('-').reverse().join('/');
+
+
 
         tempPayload = { nama, operator, shift, status, websiteFinal, tglStr, catatanBeli, ketChangeShift, isPindah };
 
+
+
         document.getElementById('modalOverlay').style.display = 'flex';
+
         document.getElementById('reviewCard').style.display = 'block';
+
         document.getElementById('successCard').style.display = 'none';
+
         document.getElementById('tutorialCard').style.display = 'none';
+
+
 
         let detailKhusus = "";
+
         if(status === "Beli off day") detailKhusus = `<b>💰 Catatan:</b> ${catatanBeli}<br>`;
+
         if(status === "Change shift") detailKhusus = `<b>🔄 Ket:</b> ${ketChangeShift}<br>`;
 
+
+
         document.getElementById('reviewContent').innerHTML = `
+
             <b>📅 Tanggal:</b> ${tglStr}<br>
+
             <b>👤 Nama:</b> ${nama}<br>
+
             <b>🎧 Operator:</b> ${operator}<br>
+
             <b>🕒 Shift:</b> ${shift}<br>
+
             <b>📝 Status:</b> ${status}<br>
+
             ${detailKhusus}
+
             <b>🌐 Website:</b> ${websiteFinal}
+
         `;
+
     }
+
+
 
     async function prosesKirimFinal() {
+
         if (isProcessing || !tempPayload) return;
+
         
+
         isProcessing = true;
+
         const btn = document.getElementById('btnKirim');
+
         btn.disabled = true;
+
         btn.innerText = "SEDANG MENGIRIM...";
+
         closeModal();
 
+
+
         const { nama, operator, shift, status, websiteFinal, tglStr, catatanBeli, ketChangeShift, isPindah } = tempPayload;
+
         
+
         let statusFinal = `${status} (Shift ${shift})`;
+
         if(status === "Beli off day") statusFinal += ` [${catatanBeli}]`;
+
         if(status === "Change shift") statusFinal += ` [${ketChangeShift}]`;
 
+
+
         const sekarang = new Date();
+
         const jamStr = sekarang.toLocaleTimeString('id-ID', { hour:'2-digit', minute:'2-digit', second:'2-digit' });
+
         const waktuFull = `${tglStr} ${jamStr}`;
 
+
+
         const payload = new URLSearchParams({
+
             nama: nama,
+
             operator: operator,
+
             shift: shift,
+
             status: status,
+
             statusFinal: statusFinal,
+
             website: websiteFinal,
+
             waktu: waktuFull,
+
             tanggal: tglStr,
+
             catatanBeli: catatanBeli || "",
+
             ketChangeShift: ketChangeShift || "",
+
             isPindah: isPindah ? "YA" : "TIDAK"
+
         });
+
+
 
         let headerTele = status === "Beli off day" ? '💰 BELI OFF DAY' : (status === "Change shift" ? '🔄 CHANGE SHIFT' : (isPindah ? '🔄 MUTASI' : '✅ ABSENSI'));
+
         let shiftIcon = (shift === "Pagi") ? "☀️" : (shift === "Tengah" ? "🌤️" : "🌙");
+
         
+
         let msg = `<b>${headerTele}</b>\n━━━━━━━━━━━━━━\n<b>Tanggal:</b> ${tglStr}\n<b>Nama:</b> ${nama}\n<b>Operator:</b> ${operator}\n<b>Shift:</b> ${shift} ${shiftIcon}\n<b>Status:</b> ${status}\n`;
+
         if(status === "Beli off day") msg += `<b>Catatan:</b> ${catatanBeli}\n`;
+
         if(status === "Change shift") msg += `<b>Ket:</b> ${ketChangeShift}\n`;
+
         msg += `<b>Website:</b> ${websiteFinal}\n<b>Waktu:</b> ${jamStr} WIB\n\n<i>Biawak</i>`;
 
+
+
         try {
+
             // Data hanya dikirim ke Google Apps Script.
+
             // Google Apps Script yang akan menyimpan ke Spreadsheet dan mengirim Telegram.
+
             await fetch(_config._z, {
+
                 method: 'POST',
+
                 mode: 'no-cors',
+
                 body: payload
+
             });
 
+
+
             let historyList = JSON.parse(localStorage.getItem('workscan_history')) || [];
+
             historyList.push({ nama, operator, shift, status: statusFinal, website: websiteFinal, waktu: waktuFull, timestamp: sekarang.getTime() });
+
             localStorage.setItem('workscan_history', JSON.stringify(historyList));
 
+
+
             audioSukses.play().catch(() => {});
+
             showModalSuccess();
+
             document.getElementById('nama').value = "";
+
             tampilkanData();
+
         } catch (e) {
+
             alert("Gagal mengirim data.");
+
         } finally {
+
             isProcessing = false;
+
             btn.innerText = "Kirim Kehadiran";
+
         }
+
     }
+
+
 
     function showModalSuccess() {
+
         document.getElementById('modalOverlay').style.display = 'flex';
+
         document.getElementById('successCard').style.display = 'block';
+
         document.getElementById('reviewCard').style.display = 'none';
+
         document.getElementById('tutorialCard').style.display = 'none';
+
     }
+
+
 
     function tampilkanData() {
+
         const tbody = document.querySelector('#tabelAbsen tbody');
+
         if(!tbody) return;
+
         tbody.innerHTML = "";
+
         let list = JSON.parse(localStorage.getItem('workscan_history')) || [];
+
         const limit = new Date().getTime() - (12 * 60 * 60 * 1000); 
+
         const filtered = list.filter(d => d.timestamp > limit);
+
         localStorage.setItem('workscan_history', JSON.stringify(filtered));
 
+
+
         filtered.reverse().forEach(d => {
+
             let row = tbody.insertRow();
+
             let cleanStatus = d.status.split('(')[0].trim().toLowerCase().replace(/\s+/g, '-');
+
             row.insertCell(0).innerHTML = `<b>${d.nama}</b><br><small style="color:var(--text-muted)">${d.operator}</small>`;
+
             row.insertCell(1).innerHTML = `<span class="badge status-hadir">${d.status}</span>`;
+
             row.insertCell(2).innerHTML = `<span style="font-weight:600">${d.website}</span>`;
+
             row.insertCell(3).innerHTML = `<span style="font-size:11px">${d.waktu.split(' ')[1]}</span>`;
+
         });
+
     }
 
+
+
     window.onload = () => {
+
         applySavedTheme();
+
         document.getElementById('tanggalManual').value = new Date().toISOString().split('T')[0];
+
         updateClock();
+
         tampilkanData();
+
     };
+
 </script>
+
 </body>
+
 </html>
