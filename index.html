@@ -1067,11 +1067,117 @@
 
 
 
+
+        /* --- PIN LOGIN DARI APPS SCRIPT --- */
+        body.locked { overflow: hidden; }
+        .pin-lock {
+            position: fixed;
+            inset: 0;
+            z-index: 99999;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+            background:
+                radial-gradient(circle at 18% 8%, rgba(124,255,0,.20), transparent 26%),
+                radial-gradient(circle at 84% 14%, rgba(0,255,136,.14), transparent 30%),
+                rgba(0, 8, 5, .96);
+            backdrop-filter: blur(12px);
+        }
+        .pin-card {
+            width: 100%;
+            max-width: 390px;
+            padding: 24px 20px;
+            border-radius: 24px;
+            text-align: center;
+            background: linear-gradient(180deg, rgba(5, 28, 17, .94), rgba(2, 10, 7, .95));
+            border: 1.4px solid var(--border);
+            box-shadow: 0 0 28px var(--glow), 0 28px 80px rgba(0,0,0,.68);
+            animation: slideUp .22s ease;
+        }
+        .pin-logo {
+            width: 66px;
+            height: 66px;
+            margin: 0 auto 14px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 32px;
+            border: 1.6px solid var(--primary);
+            background: rgba(0,12,7,.74);
+            box-shadow: 0 0 22px var(--glow), inset 0 0 18px rgba(124,255,0,.14);
+        }
+        .pin-card h3 { font-size: 24px; margin-bottom: 7px; }
+        .pin-card p { font-size: 13px; color: var(--text-muted); line-height: 1.65; margin-bottom: 16px; }
+        .pin-input {
+            width: 100%;
+            height: 56px;
+            border-radius: 17px;
+            border: 1.4px solid var(--border);
+            background: var(--input-bg);
+            color: var(--text-main);
+            font-size: 25px;
+            font-weight: 900;
+            letter-spacing: 9px;
+            text-align: center;
+            outline: none;
+            margin-bottom: 10px;
+        }
+        .pin-input:focus {
+            border-color: var(--primary);
+            box-shadow: 0 0 0 3px rgba(124,255,0,.12), 0 0 18px var(--glow);
+        }
+        .pin-remember {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+            color: var(--text-muted);
+            font-size: 13px;
+            font-weight: 800;
+            margin: 4px 0 15px;
+        }
+        .pin-remember input { width: 16px; height: 16px; accent-color: var(--primary); }
+        .pin-btn {
+            width: 100%;
+            height: 53px;
+            border: none;
+            border-radius: 18px;
+            cursor: pointer;
+            color: #fff;
+            font-size: 15px;
+            font-weight: 900;
+            background: linear-gradient(180deg, rgba(124,255,0,.82), rgba(15,112,24,.98) 62%, rgba(4,43,12,.98));
+            border: 1.3px solid rgba(193,255,0,.72);
+            text-shadow: 0 2px 3px rgba(0,0,0,.55);
+            box-shadow: 0 0 20px var(--glow), inset 0 2px 0 rgba(255,255,255,.20);
+        }
+        .pin-btn:disabled { opacity: .65; cursor: wait; }
+        .pin-error { min-height: 22px; margin-top: 12px; color: #ff6262; font-size: 13px; font-weight: 900; }
+
+
     </style>
 
 </head>
 
-<body data-theme="dark">
+<body data-theme="dark" class="locked">
+
+    <div class="pin-lock" id="pinLock">
+        <div class="pin-card">
+            <div class="pin-logo">🔒</div>
+            <h3>DIAMOND GRUP</h3>
+            <p>Masukkan PIN akses untuk membuka aplikasi absensi.</p>
+            <input class="pin-input" id="pinInput" type="password" inputmode="numeric" maxlength="6" placeholder="••••••" autocomplete="off">
+            <label class="pin-remember">
+                <input type="checkbox" id="rememberPin" checked>
+                Ingat perangkat ini 30 hari
+            </label>
+            <button class="pin-btn" id="pinBtn" onclick="checkPinAccess()">MASUK</button>
+            <div class="pin-error" id="pinError"></div>
+        </div>
+    </div>
+
 
 
 
@@ -1459,11 +1565,11 @@
 
 
     const daftarNamaOperator = [
-        "KEJOL", "UNAN", "YULI", "NOVITA", "ABUN", "YR", "FADILA", "ARJUN",
+        "KEJOL", "UNAN", "YULI", "NOVITA", "ABUN", "ROY", "FADILA", "ARJUN",
         "JEJE", "TINO", "ROMAIDA", "HAIKAL", "PUTRI", "MASRAF", "IRFAN", "INDRA",
-        "ALVINA", "RINA", "GATOT", "FATIMAH", "BOI", "V", "MIMI", "REY",
+        "ALVINA", "RINA", "GATOT", "FATIMAH", "BOI", "HERU", "MIMI", "REY",
         "SALMAH", "HABIL", "SOFIAN", "NABILA", "BODREX", "RIRI", "ENZELIN",
-        "EX", "TOMI", "NOVEL", "JOKO", "PUTRA", "NOEL", "RENDI", "APRI", "SYAADA", "YOGA"
+        "EKO", "TOMI", "NOVEL", "JOKO", "PUTRA", "NOEL", "RENDI", "YOGA"
     ];
 
     function pilihNamaOperator(nama) {
@@ -1506,6 +1612,98 @@
     let isProcessing = false;
 
     const audioSukses = new Audio('https://assets.mixkit.co/active_storage/sfx/2869/2869-preview.mp3');
+
+    /* --- PIN ACCESS: PIN dicek ke Google Apps Script, bukan disimpan di HTML --- */
+    let sessionToken = localStorage.getItem('absensidulu_session_token') || '';
+    let sessionUntil = Number(localStorage.getItem('absensidulu_session_until') || 0);
+
+    function unlockApp() {
+        const lock = document.getElementById('pinLock');
+        if (lock) lock.style.display = 'none';
+        document.body.classList.remove('locked');
+    }
+
+    function resetPinSession() {
+        sessionToken = '';
+        sessionUntil = 0;
+        localStorage.removeItem('absensidulu_session_token');
+        localStorage.removeItem('absensidulu_session_until');
+    }
+
+    function checkSavedPinSession() {
+        if (sessionToken && sessionUntil && Date.now() < sessionUntil) {
+            unlockApp();
+        } else {
+            resetPinSession();
+            const input = document.getElementById('pinInput');
+            if (input) setTimeout(() => input.focus(), 250);
+        }
+    }
+
+    function checkPinAccess() {
+        const pinInput = document.getElementById('pinInput');
+        const pinBtn = document.getElementById('pinBtn');
+        const pinError = document.getElementById('pinError');
+        const remember = document.getElementById('rememberPin');
+        const pin = (pinInput.value || '').trim();
+
+        if (!pin) {
+            pinError.textContent = 'Masukkan PIN terlebih dahulu.';
+            pinInput.focus();
+            return;
+        }
+
+        pinBtn.disabled = true;
+        pinBtn.textContent = 'MEMERIKSA...';
+        pinError.textContent = '';
+
+        const cbName = 'pinCallback_' + Date.now();
+        window[cbName] = function(res) {
+            try {
+                if (res && res.ok && res.token) {
+                    sessionToken = res.token;
+                    sessionUntil = Number(res.until || (Date.now() + (30 * 24 * 60 * 60 * 1000)));
+                    if (remember.checked) {
+                        localStorage.setItem('absensidulu_session_token', sessionToken);
+                        localStorage.setItem('absensidulu_session_until', String(sessionUntil));
+                    }
+                    unlockApp();
+                } else {
+                    pinError.textContent = '❌ PIN salah. Silakan coba lagi.';
+                    pinInput.value = '';
+                    pinInput.focus();
+                }
+            } finally {
+                pinBtn.disabled = false;
+                pinBtn.textContent = 'MASUK';
+                delete window[cbName];
+                if (script && script.parentNode) script.parentNode.removeChild(script);
+            }
+        };
+
+        const script = document.createElement('script');
+        script.src = _config._z + '?action=checkPin&pin=' + encodeURIComponent(pin) + '&callback=' + encodeURIComponent(cbName);
+        script.onerror = function() {
+            pinError.textContent = 'Gagal menghubungi server PIN.';
+            pinBtn.disabled = false;
+            pinBtn.textContent = 'MASUK';
+            delete window[cbName];
+        };
+        document.body.appendChild(script);
+    }
+
+    document.addEventListener('DOMContentLoaded', function() {
+        const input = document.getElementById('pinInput');
+        if (input) {
+            input.addEventListener('keydown', function(e) {
+                if (e.key === 'Enter') checkPinAccess();
+            });
+            input.addEventListener('input', function() {
+                input.value = input.value.replace(/\D/g, '').slice(0, 6);
+            });
+        }
+    });
+
 
 
 
@@ -1764,6 +1962,17 @@
 
 
 
+        if (!sessionToken || !sessionUntil || Date.now() >= sessionUntil) {
+            alert("Sesi PIN sudah habis. Silakan masukkan PIN lagi.");
+            resetPinSession();
+            document.getElementById('pinLock').style.display = 'flex';
+            document.body.classList.add('locked');
+            isProcessing = false;
+            btn.disabled = false;
+            btn.innerText = "Kirim Kehadiran";
+            return;
+        }
+
         const payload = new URLSearchParams({
 
             nama: nama,
@@ -1919,6 +2128,7 @@
         updateClock();
 
         tampilkanData();
+        checkSavedPinSession();
 
     };
 
