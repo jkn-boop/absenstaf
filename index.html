@@ -8,6 +8,8 @@
 
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
 
+    <meta name="robots" content="noindex, nofollow">
+
     <title>DIAMOND GRUP - Neon Green Fire</title>
 
     <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
@@ -1581,6 +1583,51 @@
         }
     }
 
+    let pinBlockTimer = null;
+
+    function tampilkanPinError(res, pinInput, pinBtn, pinError) {
+        const pesan = res && res.error ? res.error : 'PIN salah. Silakan coba lagi.';
+        const isBlocked = res && res.blocked;
+        const retryAfter = Number(res && res.retryAfterSeconds ? res.retryAfterSeconds : 0);
+
+        pinError.textContent = '❌ ' + pesan;
+        pinInput.value = '';
+
+        if (isBlocked && retryAfter > 0) {
+            mulaiHitungMundurPin(retryAfter, pinInput, pinBtn, pinError, pesan);
+            return;
+        }
+
+        pinInput.focus();
+    }
+
+    function mulaiHitungMundurPin(seconds, pinInput, pinBtn, pinError, pesanAwal) {
+        let sisa = Math.max(1, Number(seconds || 0));
+
+        clearInterval(pinBlockTimer);
+        pinInput.disabled = true;
+        pinBtn.disabled = true;
+
+        const render = () => {
+            const menit = Math.ceil(sisa / 60);
+            pinBtn.textContent = 'DIBLOKIR';
+            pinError.textContent = '⛔ ' + pesanAwal + ' Sisa waktu: ' + menit + ' menit.';
+            sisa -= 1;
+
+            if (sisa < 0) {
+                clearInterval(pinBlockTimer);
+                pinInput.disabled = false;
+                pinBtn.disabled = false;
+                pinBtn.textContent = 'MASUK';
+                pinError.textContent = 'Silakan coba masukkan PIN kembali.';
+                pinInput.focus();
+            }
+        };
+
+        render();
+        pinBlockTimer = setInterval(render, 1000);
+    }
+
     function checkPinAccess() {
         const pinInput = document.getElementById('pinInput');
         const pinBtn = document.getElementById('pinBtn');
@@ -1599,37 +1646,50 @@
         pinError.textContent = '';
 
         const cbName = 'pinCallback_' + Date.now();
+        const script = document.createElement('script');
+
         window[cbName] = function(res) {
             try {
                 if (res && res.ok && res.token) {
                     sessionToken = res.token;
                     sessionUntil = Number(res.until || (Date.now() + (30 * 24 * 60 * 60 * 1000)));
+
                     if (remember.checked) {
                         localStorage.setItem('absensidulu_session_token', sessionToken);
                         localStorage.setItem('absensidulu_session_until', String(sessionUntil));
                     }
+
                     unlockApp();
                 } else {
-                    pinError.textContent = '❌ PIN salah. Silakan coba lagi.';
-                    pinInput.value = '';
-                    pinInput.focus();
+                    tampilkanPinError(res, pinInput, pinBtn, pinError);
                 }
             } finally {
-                pinBtn.disabled = false;
-                pinBtn.textContent = 'MASUK';
+                if (!(res && res.blocked)) {
+                    pinBtn.disabled = false;
+                    pinBtn.textContent = 'MASUK';
+                }
+
                 delete window[cbName];
-                if (script && script.parentNode) script.parentNode.removeChild(script);
+
+                if (script && script.parentNode) {
+                    script.parentNode.removeChild(script);
+                }
             }
         };
 
-        const script = document.createElement('script');
         script.src = _config._z + '?action=checkPin&pin=' + encodeURIComponent(pin) + '&callback=' + encodeURIComponent(cbName);
+
         script.onerror = function() {
             pinError.textContent = 'Gagal menghubungi server PIN.';
             pinBtn.disabled = false;
             pinBtn.textContent = 'MASUK';
             delete window[cbName];
+
+            if (script && script.parentNode) {
+                script.parentNode.removeChild(script);
+            }
         };
+
         document.body.appendChild(script);
     }
 
