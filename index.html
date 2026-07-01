@@ -17,7 +17,6 @@
     <style>
 
 
-
         :root {
 
             --primary: #22c55e;
@@ -53,7 +52,6 @@
         }
 
 
-
         [data-theme="dark"] {
 
             --primary: #7CFF00;
@@ -85,7 +83,6 @@
         }
 
 
-
         * {
 
             margin: 0;
@@ -99,7 +96,6 @@
             -webkit-tap-highlight-color: transparent;
 
         }
-
 
 
         body {
@@ -127,7 +123,6 @@
         }
 
 
-
         body::before {
 
             content: "";
@@ -151,7 +146,6 @@
             background-size: 92px 92px;
 
         }
-
 
 
         body::after {
@@ -181,7 +175,6 @@
                 url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='1200' height='230' viewBox='0 0 1200 230'%3E%3Cg fill='%237cff00' opacity='.50'%3E%3Crect x='20' y='115' width='54' height='115' rx='3'/%3E%3Crect x='105' y='70' width='80' height='160' rx='3'/%3E%3Crect x='225' y='98' width='58' height='132' rx='3'/%3E%3Crect x='325' y='40' width='92' height='190' rx='3'/%3E%3Crect x='458' y='120' width='70' height='110' rx='3'/%3E%3Crect x='570' y='52' width='84' height='178' rx='3'/%3E%3Crect x='704' y='92' width='65' height='138' rx='3'/%3E%3Crect x='810' y='30' width='92' height='200' rx='3'/%3E%3Crect x='950' y='74' width='75' height='156' rx='3'/%3E%3Crect x='1080' y='100' width='72' height='130' rx='3'/%3E%3C/g%3E%3C/svg%3E") bottom center / cover no-repeat;
 
         }
-
 
 
         .btn-float {
@@ -229,7 +222,6 @@
         .btn-float:hover { transform: translateY(-2px); box-shadow: 0 0 18px var(--glow), var(--shadow); }
 
         .btn-float:active { transform: scale(.94); }
-
 
 
         .top-nav {
@@ -345,7 +337,6 @@
         }
 
 
-
         .container {
 
             width: 100%;
@@ -367,7 +358,6 @@
             position: relative;
 
         }
-
 
 
         header {
@@ -483,7 +473,6 @@
         }
 
 
-
         .form-grid {
 
             display: grid;
@@ -519,7 +508,6 @@
         .full-width { grid-column: 1 / -1; }
 
 
-
         label {
 
             font-size: 10px;
@@ -535,7 +523,6 @@
             text-shadow: 0 0 8px rgba(124,255,0,.18);
 
         }
-
 
 
         input,
@@ -621,8 +608,6 @@
             font-size: 12px;
             font-weight: 800;
         }
-
-
 
 
         .mutasi-card {
@@ -720,9 +705,7 @@
         #checkPindah:checked { background: var(--primary); box-shadow: 0 0 18px var(--primary); }
 
 
-
         #pindahPosisiContainer { animation: slideUp .22s ease; }
-
 
 
         #btnKirim {
@@ -768,7 +751,6 @@
         #btnKirim:active { transform: translateY(3px); box-shadow: 0 4px 0 rgba(0,0,0,.36), 0 0 18px var(--glow); }
 
         #btnKirim:disabled { opacity: .65; cursor: wait; }
-
 
 
         .history-wrapper {
@@ -848,7 +830,6 @@
         small { color: var(--text-muted) !important; }
 
 
-
         .badge {
 
             padding: 5px 9px;
@@ -872,9 +853,6 @@
             border: 1px solid var(--border);
 
         }
-
-
-
 
 
         .footer-brand {
@@ -922,7 +900,6 @@
         }
 
 
-
         .footer-brand span {
 
             font-family: 'Yellowtail', cursive;
@@ -938,7 +915,6 @@
                 0 0 18px rgba(124,255,0,.25);
 
         }
-
 
 
         .modal-overlay {
@@ -1000,7 +976,6 @@
         }
 
 
-
         @keyframes greenFlame {
 
             from { transform: translateY(6px) scaleX(.98); opacity: .30; }
@@ -1018,7 +993,6 @@
         }
 
 
-
         @media (min-width: 620px) {
 
             .form-grid { grid-template-columns: 1fr 1fr; }
@@ -1026,7 +1000,6 @@
             body { padding: 18px 14px; }
 
         }
-
 
 
         @media (max-width: 460px) {
@@ -1066,9 +1039,6 @@
         }
 
 
-
-
-        /* --- PIN LOGIN DARI APPS SCRIPT --- */
         body.locked { overflow: hidden; }
         .pin-lock {
             position: fixed;
@@ -1179,12 +1149,9 @@
     </div>
 
 
-
-
     <button class="btn-float help-btn" onclick="showTutorial()">?</button>
 
     <button class="btn-float theme-toggle" onclick="toggleTheme()" id="themeBtn">🌓</button>
-
 
 
     <div class="top-nav">
@@ -1194,7 +1161,6 @@
         <a href="https://jkn-boop.github.io/game/" target="_blank" class="nav-link nav-Game">Game ♣</a>
 
     </div>
-
 
 
     <div class="modal-overlay" id="modalOverlay">
@@ -1222,7 +1188,6 @@
         </div>
 
 
-
         <div class="modal-card" id="successCard" style="display: none;">
 
             <span style="font-size: 40px;">✅</span>
@@ -1234,7 +1199,6 @@
             <button onclick="closeModal()" style="width:100%; padding: 14px; background: var(--primary); color:white; border:none; border-radius:12px; font-weight:800;">OK</button>
 
         </div>
-
 
 
         <div class="modal-card" id="reviewCard" style="display: none;">
@@ -1256,7 +1220,6 @@
     </div>
 
 
-
     <div class="container">
 
         <header>
@@ -1266,7 +1229,6 @@
             <p id="systemClock">Memuat waktu...</p>
 
         </header>
-
 
 
         <div class="form-grid">
@@ -1280,7 +1242,6 @@
             </div>
 
 
-
             <div class="form-group autocomplete-wrap">
 
                 <label>Nama (Operator)</label>
@@ -1291,7 +1252,6 @@
             </div>
 
 
-
             <div class="form-group">
 
                 <label>Agent Panel</label>
@@ -1299,7 +1259,6 @@
                 <input type="text" id="operator" placeholder="Contoh: CS####">
 
             </div>
-
 
 
             <div class="form-group">
@@ -1317,7 +1276,6 @@
                 </select>
 
             </div>
-
 
 
             <div class="form-group">
@@ -1341,7 +1299,6 @@
                 </select>
 
             </div>
-
 
 
             <div class="form-group full-width" id="websiteGroup">
@@ -1383,7 +1340,6 @@
             </div>
 
 
-
             <div class="form-group full-width" id="changeShiftGroup" style="display:none;">
 
                 <label>Keterangan Perubahan Shift</label>
@@ -1407,7 +1363,6 @@
             </div>
 
 
-
             <div class="form-group full-width" id="beliOffGroup" style="display:none;">
 
                 <label>Off Day Milik Siapa?</label>
@@ -1415,7 +1370,6 @@
                 <input type="text" id="catatanBeli" placeholder="Nama Agent">
 
             </div>
-
 
 
             <div class="mutasi-card full-width" id="mutasiToggleCard" onclick="toggleMutasi()">
@@ -1431,7 +1385,6 @@
                 <input type="checkbox" id="checkPindah" style="width: 22px; height: 22px; accent-color: var(--primary);">
 
             </div>
-
 
 
             <div id="pindahPosisiContainer" class="full-width" style="display:none;">
@@ -1471,9 +1424,7 @@
         </div>
 
 
-
         <button id="btnKirim" onclick="tambahAbsen()">Kirim Kehadiran</button>
-
 
 
         <div class="history-wrapper">
@@ -1509,7 +1460,6 @@
         </div>
 
 
-
         <div class="footer-brand">
 
             Compact Neon Shift System
@@ -1521,11 +1471,9 @@
     </div>
 
 
-
 <script>
 
-    /* --- PROTEKSI INSPECT ELEMENT & F12 --- */
-
+    
     (function() {
 
         document.addEventListener('contextmenu', e => e.preventDefault());
@@ -1549,27 +1497,20 @@
     })();
 
 
-
     const _config = {
 
-        // GANTI dengan URL Web App dari Google Apps Script baru Anda.
-
-        // Bot Telegram dan Chat ID tidak ditaruh di HTML agar lebih aman.
-
+        
         _z: "https://script.google.com/macros/s/AKfycbxu6UbcoN4jGt5syO2JVyZRHuWTr9Xk2cZEaPKQYjoetFN9aBWxZwZa0oZNdycEcrv4SA/exec"
 
     };
 
 
-
-
-
     const daftarNamaOperator = [
         "KEJOL", "UNAN", "YULI", "NOVITA", "ABUN", "YR", "FADILA", "ARJUN",
         "JEJE", "TINO", "ROMAIDA", "HAIKAL", "PUTRI", "MASRAF", "IRFAN", "INDRA",
-        "ALVINA", "RINA", "GATOT", "FATIMAH", "BOI", "HERU", "MIMI", "REY",
+        "ALVINA", "RINA", "GATOT", "FATIMAH", "BOI", "V", "MIMI", "REY",
         "SALMAH", "HABIL", "SOFIAN", "NABILA", "BODREX", "RIRI", "ENZELIN",
-        "EKO", "TOMI", "NOVEL", "JOKO", "PUTRA", "NOEL", "RENDI", "YOGA", "SYAADA", "APRI"
+        "EX", "TOMI", "NOVEL", "JOKO", "PUTRA", "NOEL", "RENDI", "YOGA", "SYAADA", "APRI"
     ];
 
     function pilihNamaOperator(nama) {
@@ -1613,7 +1554,7 @@
 
     const audioSukses = new Audio('https://assets.mixkit.co/active_storage/sfx/2869/2869-preview.mp3');
 
-    /* --- PIN ACCESS: PIN dicek ke Google Apps Script, bukan disimpan di HTML --- */
+    
     let sessionToken = localStorage.getItem('absensidulu_session_token') || '';
     let sessionUntil = Number(localStorage.getItem('absensidulu_session_until') || 0);
 
@@ -1705,10 +1646,6 @@
     });
 
 
-
-
-
-
     function updateClock() {
 
         const now = new Date();
@@ -1720,7 +1657,6 @@
     }
 
     setInterval(updateClock, 1000);
-
 
 
     function toggleTheme() {
@@ -1750,7 +1686,6 @@
     }
 
 
-
     function applySavedTheme() {
 
         const saved = localStorage.getItem('workscan_theme') || 'dark';
@@ -1774,7 +1709,6 @@
     }
 
 
-
     function showTutorial() {
 
         document.getElementById('modalOverlay').style.display = 'flex';
@@ -1788,13 +1722,11 @@
     }
 
 
-
     function closeModal() {
 
         document.getElementById('modalOverlay').style.display = 'none';
 
     }
-
 
 
     function handleStatusChange() {
@@ -1810,7 +1742,6 @@
         const changeGroup = document.getElementById('changeShiftGroup');
 
 
-
         webGroup.style.display = (status === "Hadir" || status === "Beli off day" || status === "Change shift") ? "block" : "none";
 
         mutasiCard.style.display = (status === "Hadir") ? "flex" : "none";
@@ -1820,7 +1751,6 @@
         changeGroup.style.display = (status === "Change shift") ? "block" : "none";
 
         
-
         if (status !== "Hadir") {
 
             document.getElementById('checkPindah').checked = false;
@@ -1832,7 +1762,6 @@
     }
 
 
-
     function toggleMutasi() {
 
         const check = document.getElementById('checkPindah');
@@ -1842,7 +1771,6 @@
         document.getElementById('pindahPosisiContainer').style.display = check.checked ? 'block' : 'none';
 
     }
-
 
 
     function tambahAbsen() {
@@ -1868,20 +1796,16 @@
         const tglManual = document.getElementById('tanggalManual').value;
 
 
-
         if (!nama || !operator || !tglManual) { alert("Data wajib diisi!"); return; }
         if (!daftarNamaOperator.includes(nama)) { alert("Nama harus dipilih dari daftar operator agar tidak typo."); return; }
 
         
-
         let websiteFinal = (status === "Hadir") ? (isPindah ? `${website} ➔ ${tujuan}` : website) : ((status === "Beli off day" || status === "Change shift") ? website : "-");
 
         const tglStr = tglManual.split('-').reverse().join('/');
 
 
-
         tempPayload = { nama, operator, shift, status, websiteFinal, tglStr, catatanBeli, ketChangeShift, isPindah };
-
 
 
         document.getElementById('modalOverlay').style.display = 'flex';
@@ -1893,13 +1817,11 @@
         document.getElementById('tutorialCard').style.display = 'none';
 
 
-
         let detailKhusus = "";
 
         if(status === "Beli off day") detailKhusus = `<b>💰 Catatan:</b> ${catatanBeli}<br>`;
 
         if(status === "Change shift") detailKhusus = `<b>🔄 Ket:</b> ${ketChangeShift}<br>`;
-
 
 
         document.getElementById('reviewContent').innerHTML = `
@@ -1923,13 +1845,11 @@
     }
 
 
-
     async function prosesKirimFinal() {
 
         if (isProcessing || !tempPayload) return;
 
         
-
         isProcessing = true;
 
         const btn = document.getElementById('btnKirim');
@@ -1941,11 +1861,9 @@
         closeModal();
 
 
-
         const { nama, operator, shift, status, websiteFinal, tglStr, catatanBeli, ketChangeShift, isPindah } = tempPayload;
 
         
-
         let statusFinal = `${status} (Shift ${shift})`;
 
         if(status === "Beli off day") statusFinal += ` [${catatanBeli}]`;
@@ -1953,13 +1871,11 @@
         if(status === "Change shift") statusFinal += ` [${ketChangeShift}]`;
 
 
-
         const sekarang = new Date();
 
         const jamStr = sekarang.toLocaleTimeString('id-ID', { hour:'2-digit', minute:'2-digit', second:'2-digit' });
 
         const waktuFull = `${tglStr} ${jamStr}`;
-
 
 
         if (!sessionToken || !sessionUntil || Date.now() >= sessionUntil) {
@@ -2001,13 +1917,11 @@
         });
 
 
-
         let headerTele = status === "Beli off day" ? '💰 BELI OFF DAY' : (status === "Change shift" ? '🔄 CHANGE SHIFT' : (isPindah ? '🔄 MUTASI' : '✅ ABSENSI'));
 
         let shiftIcon = (shift === "Pagi") ? "☀️" : (shift === "Tengah" ? "🌤️" : "🌙");
 
         
-
         let msg = `<b>${headerTele}</b>\n━━━━━━━━━━━━━━\n<b>Tanggal:</b> ${tglStr}\n<b>Nama:</b> ${nama}\n<b>Operator:</b> ${operator}\n<b>Shift:</b> ${shift} ${shiftIcon}\n<b>Status:</b> ${status}\n`;
 
         if(status === "Beli off day") msg += `<b>Catatan:</b> ${catatanBeli}\n`;
@@ -2017,13 +1931,9 @@
         msg += `<b>Website:</b> ${websiteFinal}\n<b>Waktu:</b> ${jamStr} WIB\n\n<i>Biawak</i>`;
 
 
-
         try {
 
-            // Data hanya dikirim ke Google Apps Script.
-
-            // Google Apps Script yang akan menyimpan ke Spreadsheet dan mengirim Telegram.
-
+            
             await fetch(_config._z, {
 
                 method: 'POST',
@@ -2035,13 +1945,11 @@
             });
 
 
-
             let historyList = JSON.parse(localStorage.getItem('workscan_history')) || [];
 
             historyList.push({ nama, operator, shift, status: statusFinal, website: websiteFinal, waktu: waktuFull, timestamp: sekarang.getTime() });
 
             localStorage.setItem('workscan_history', JSON.stringify(historyList));
-
 
 
             audioSukses.play().catch(() => {});
@@ -2067,7 +1975,6 @@
     }
 
 
-
     function showModalSuccess() {
 
         document.getElementById('modalOverlay').style.display = 'flex';
@@ -2079,7 +1986,6 @@
         document.getElementById('tutorialCard').style.display = 'none';
 
     }
-
 
 
     function tampilkanData() {
@@ -2099,7 +2005,6 @@
         localStorage.setItem('workscan_history', JSON.stringify(filtered));
 
 
-
         filtered.reverse().forEach(d => {
 
             let row = tbody.insertRow();
@@ -2117,7 +2022,6 @@
         });
 
     }
-
 
 
     window.onload = () => {
